@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+{% block body %}
+    <div class="container">
+        <h1 style="text-align: center"> Workflow Component </h1>
+        <br>
+
+        <table class="table">
+            <thead>
+            <th> Transition\State </th>
+            <th> New </th>
+            <th> Planned </th>
+            <th> Ongoing </th>
+            <th> Wating feedback </th>
+            <th> Annulled </th>
+            <th> Done </th>
+            </thead>
+            <tbody>
+            {% for transition in availableTransistions %}
+                <tr>
+                    <td> {{ transition }} </td>
+                    <td class="{% if  workflow.can(purchaseOrder_new,transition) %} bg-success {% else %}  bg-danger {% endif %}" >
+                        {% if workflow.can(purchaseOrder_new,transition) %}
+                            true
+                        {% else %}
+                            false
+                        {% endif %}
+                    </td>
+                    <td class="{% if  workflow.can(purchaseOrder_planned,transition) %} bg-success {% else %}  bg-danger {% endif %}">
+                        {% if workflow.can(purchaseOrder_planned,transition) %}
+                            true
+                        {% else %}
+                            false
+                        {% endif %}
+                    </td>
+                    <td  class="{% if  workflow.can(purchaseOrder_ongoing,transition) %} bg-success {% else %}  bg-danger {% endif %}">
+                        {% if workflow.can(purchaseOrder_ongoing,transition) %}
+                            true
+                        {% else %}
+                            false
+                        {% endif %}
+                    </td>
+                    <td class="{% if  workflow.can(purchaseOrder_wating_feedback,transition) %} bg-success {% else %}  bg-danger {% endif %}">
+                        {% if workflow.can(purchaseOrder_wating_feedback,transition) %}
+                            true
+                        {% else %}
+                            false
+                        {% endif %}
+                    </td>
+                    <td class="{% if  workflow.can(purchaseOrder_annulled,transition) %} bg-success {% else %}  bg-danger {% endif %}">
+                        {% if workflow.can(purchaseOrder_annulled,transition) %}
+                            true
+                        {% else %}
+                            false
+                        {% endif %}
+
+                    </td>
+                    <td class="{% if  workflow.can(purchaseOrder_done,transition) %} bg-success {% else %}  bg-danger {% endif %}">
+                        {% if workflow.can(purchaseOrder_done,transition) %}
+                            true
+                        {% else %}
+                            false
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <img src="{{ url }}">
+    </div>
+
+{% endblock %}

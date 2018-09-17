@@ -1,0 +1,36 @@
+framework:
+    workflows:
+        purchaseOrder_lifecycle:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'status'
+            supports:
+                - App\Entity\PurchaseOrder
+            initial_place: new
+            places:
+                - new
+                - planned
+                - ongoing
+                - waiting_feedback
+                - annulled
+                - done
+            transitions:
+                to_planned:
+                    from: new
+                    to:   planned
+                to_ongoing:
+                    from: [planned, new]
+                    to:   ongoing
+                reject:
+                    from: [ongoing,planned , waiting_feedback]
+                    to:   annulled
+                done_from_wating_feedback:
+                    from: waiting_feedback
+                    to: done
+                done_from_ongoing:
+                    from: ongoing
+                    to: done

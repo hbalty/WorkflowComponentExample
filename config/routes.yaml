@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+states:
+    path: /manage
+    controller: App\Controller\PurchaseOrderController:managePurchase
